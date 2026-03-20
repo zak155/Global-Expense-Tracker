@@ -1,5 +1,5 @@
 import json
-from .models import AuditLog
+from expenses.models import AuditLog
 
 
 class CurrencyAuditMiddleware:
