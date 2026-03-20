@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { PlusCircle, Banknote } from 'lucide-react'; // Import icons
 import { createExpense } from '../services/api';
 import type { Expense } from '../types/Expense';
+import './ExpenseForm.css';
 
 interface Props {
   onAdd: (newExpense: Expense) => void;
@@ -29,39 +31,43 @@ const ExpenseForm: React.FC<Props> = ({ onAdd }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ margin: '20px 0', display: 'flex', gap: '10px' }}>
-      <input
-        type="number"
-        value={amount}
-        onChange={(e) => setAmount(Number(e.target.value))}
-        placeholder="Amount"
-        required
-        style={{ padding: '8px', borderRadius: '6px', border: '1px solid #ccc', width: '120px' }}
-      />
+    <form onSubmit={handleSubmit} className="expense-form-container">
+      {/* Input Group with Icon */}
+      <div className="input-wrapper">
+        <Banknote className="input-icon" size={18} />
+        <input
+          type="number"
+          className="form-input icon-padding"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value === '' ? '' : Number(e.target.value))}
+          placeholder="0.00"
+          required
+        />
+      </div>
+      
       <select
+        className="form-select"
         value={currency}
         onChange={(e) => setCurrency(e.target.value as 'USD' | 'ETB' | 'EUR')}
-        style={{ padding: '8px', borderRadius: '6px', border: '1px solid #ccc' }}
       >
         <option value="USD">USD</option>
         <option value="ETB">ETB</option>
         <option value="EUR">EUR</option>
       </select>
+
       <button
+        className="submit-button"
         type="submit"
-        disabled={loading}
-        style={{
-          padding: '8px 16px',
-          borderRadius: '6px',
-          backgroundColor: '#6366f1',
-          color: 'white',
-          fontWeight: 'bold',
-          transform: loading ? 'scale(0.95)' : 'scale(1)',
-          transition: 'transform 0.2s',
-          cursor: loading ? 'not-allowed' : 'pointer'
-        }}
+        disabled={loading || amount === ''}
       >
-        {loading ? 'Adding...' : 'Add Expense'}
+        {loading ? (
+          <span className="loader"></span> 
+        ) : (
+          <>
+            <PlusCircle size={18} style={{ marginRight: '8px' }} />
+            Add Expense
+          </>
+        )}
       </button>
     </form>
   );
