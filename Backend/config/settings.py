@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'expenses.middleware.audit_middleware.CurrencyAuditMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'

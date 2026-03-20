@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import ExpenseListCreateView
+from .views import expense_list_create
 
 urlpatterns = [
-    path('expenses/', ExpenseListCreateView.as_view(), name='expenses'),
+    path('expenses/', expense_list_create, name='expenses'),
 ]
