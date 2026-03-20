@@ -1,0 +1,28 @@
+.table-container {
+  overflow-x: auto;
+  margin: 24px;
+}
+
+.generic-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+thead {
+  background-color: #111827;
+  color: white;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.row-hover:hover {
+  background-color: #f3f4f6;
+  transition: background-color 0.2s;
+}
