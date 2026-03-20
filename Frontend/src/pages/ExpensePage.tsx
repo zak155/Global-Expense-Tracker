@@ -4,31 +4,41 @@ import type { Expense } from '../types/Expense';
 import GenericTable from '../components/GenericTable';
 import ExpenseForm from '../components/ExpenseForm';
 
-const ExpensePage = () => {
+// Define columns explicitly with correct type
+const columns: { key: keyof Expense; label: string }[] = [
+  { key: 'amount', label: 'Amount' },
+  { key: 'currency', label: 'Currency' },
+  { key: 'normalized_usd', label: 'USD Value' },
+];
+
+const ExpensePage: React.FC = () => {
   const [data, setData] = useState<Expense[]>([]);
 
+  // Load expenses from backend
   const loadExpenses = async () => {
-    const expenses = await fetchExpenses();
-    setData(expenses);
+    try {
+      const expenses = await fetchExpenses();
+      setData(expenses);
+    } catch (error) {
+      console.error('Failed to load expenses', error);
+    }
   };
 
   useEffect(() => {
     loadExpenses();
   }, []);
 
-  const columns = [
-    { key: 'amount', label: 'Amount' },
-    { key: 'currency', label: 'Currency' },
-    { key: 'normalized_usd', label: 'USD Value' },
-  ] as const;
-
+  // Callback when a new expense is added
   const handleAdd = (newExpense: Expense) => {
     setData((prev) => [...prev, newExpense]);
   };
 
   return (
     <div style={{ padding: '20px' }}>
+      {/* Expense form */}
       <ExpenseForm onAdd={handleAdd} />
+
+      {/* Generic table */}
       <GenericTable data={data} columns={columns} />
     </div>
   );
