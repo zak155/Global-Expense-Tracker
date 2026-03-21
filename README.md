@@ -1,88 +1,81 @@
 🌍 Global Expense Tracker
 
-Track expenses in any currency. The backend automatically converts amounts to USD using live exchange rates and stores a normalized value in SQLite. The frontend displays a live-updating, animated table of expenses.
+Track expenses in any currency.
+The backend auto-converts everything to USD, and the frontend shows a live-updating dashboard.
 
-📂 Project Structure
+✨ Features
+💱 Add expenses in USD, ETB, EUR
+🔄 Automatic currency → USD conversion
+⚡ Live updates after adding expenses
+🧾 Audit logging via middleware
+📊 Clean, reusable React table
+🎨 Modern UI with icons (lucide-react)
+🧠 Exchange rate caching (fewer API calls)
+📁 Structure
 Global-Expense-Tracker/
- ├── backend/       # Django backend
- │    ├── config/
- │    ├── expenses/
- │    └── manage.py
- └── frontend/      # React + TypeScript frontend
-      ├── src/
-      ├── package.json
-      └── vite.config.ts
-⚙️ Features
-
-Add expenses in USD, ETB, EUR
-
-Backend auto-converts to USD using real-time exchange rates
-
-AuditLog middleware logs all conversions
-
-Generic, type-safe React table displays expenses
-
-Animated submit buttons and modern CSS UI
-
-Live table update after adding an expense
-
-Follows system layer pattern:
-
-Frontend → API → Backend Services → DB
-
-Caching exchange rates to reduce API calls
-
-🖥 Backend Setup (Django + SQLite)
+├── backend/     # Django API
+└── frontend/    # React + TypeScript
+🐍 Backend Setup
 cd backend
-python -m venv venv           # Create virtual environment (if not done)
-source venv/bin/activate       # Linux/macOS
-venv\Scripts\activate          # Windows
 
-pip install -r requirements.txt
+python -m venv venv
 
-python manage.py migrate       # Apply migrations
-python manage.py runserver     # Start backend at http://127.0.0.1:8000
+# activate
+venv\Scripts\activate     # Windows
+source venv/bin/activate  # Mac/Linux
 
-Backend exposes APIs like:
-GET /api/expenses/ → fetch all expenses
-POST /api/expenses/ → add new expense (currency conversion done automatically)
+pip install django djangorestframework django-cors-headers requests
 
-🖥 Frontend Setup (React + TypeScript)
+python manage.py migrate
+python manage.py runserver
+
+👉 Runs on: http://127.0.0.1:8000
+
+⚙️ Enable CORS (important)
+
+In settings.py:
+
+INSTALLED_APPS += ["corsheaders", "rest_framework"]
+
+MIDDLEWARE = ["corsheaders.middleware.CorsMiddleware", *MIDDLEWARE]
+
+CORS_ALLOW_ALL_ORIGINS = True
+🔌 API
+GET /api/expenses/ → list expenses
+POST /api/expenses/ → add expense (auto converts)
+⚛️ Frontend Setup
 cd frontend
+
 npm install
+npm install lucide-react
 npm run dev
 
-Open http://localhost:5173
+👉 Open: http://localhost:5173
 
-Expense form + generic table are interactive
+🎨 Example Icon Usage
+import { Plus } from "lucide-react";
 
-Table updates live when adding a new expense
-
-🔄 Data Flow
-User Input (Amount + Currency)
-          ↓
-     ExpenseForm
-          ↓
-   API Request → Django Backend
-          ↓
-  Fetch current exchange rate (cached if available)
-          ↓
-  Normalize amount → store in SQLite DB
-          ↓
-  Return saved expense
-          ↓
- GenericTable updates live in React UI
-💡 Design Choices
-
-Function-based views in Django for simplicity
-
-Custom middleware logs currency conversions (AuditLog)
-
-Generic table component in React ensures type safety and reusability
-
-CSS + animations for polished UI without extra libraries
-
-Cache exchange rates to reduce external API calls
+<button>
+  <Plus size={16} /> Add Expense
+</button>
+🔄 How It Works
+User → React Form → API → Django
+     → Convert to USD → Save DB
+     → Response → UI updates instantly
+🧠 Design Highlights
+FBVs (Django) → simple & clear logic
+Middleware → logs every conversion
+Caching → avoids repeated API calls
+Typed React components → safer frontend
+🏆 Why This Project Stands Out
+Real-world currency handling
+Clean full-stack architecture
+Shows API integration + optimization
+Easy to explain in interviews
+🚀 Run Everything
+Start backend
+Start frontend
+Add expense → see it update instantly
 
 
 
@@ -130,24 +123,4 @@ Cache exchange rates to reduce external API calls
           │ GenericTable (React)│
           │ Live Table Updates  │
           └─────────────────────┘
-🔹 Explanation
-
-User Input: User enters amount and currency in the form.
-
-ExpenseForm: React component controls inputs and triggers API call.
-
-API Call: POST request to Django backend.
-
-Django Backend:
-
-Converts currency to USD (uses cache if available)
-
-Logs conversion in AuditLog middleware
-
-Stores the normalized value in SQLite
-
-SQLite DB: Stores original and normalized amounts.
-
-Response: Backend returns the saved expense object.
-
-GenericTable: React table updates live with the new expense.
+nse.
