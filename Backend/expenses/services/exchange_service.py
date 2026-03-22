@@ -1,4 +1,5 @@
 from django.core.cache import cache
+import requests
 #used to fat look up of repeated API calls
 
 #Keeps external API logic 
@@ -11,7 +12,7 @@ class ExchangeRateService:
         cache_key = f"rate_{from_currency}_{to_currency}"
         cached_rate = cache.get(cache_key)
 
-        if if cached_rate is not None::
+        if cached_rate is not None:
             return cached_rate
 
         if from_currency == to_currency:
