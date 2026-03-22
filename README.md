@@ -30,11 +30,11 @@ Global-Expense-Tracker/
 ```bash
 cd backend
 
-python -m venv venv
+python -m venv expense
 
 # Activate virtual environment
-venv\Scripts\activate     # Windows
-source venv/bin/activate  # Mac/Linux
+expense\Scripts\activate     # Windows
+source expense/bin/activate  # Mac/Linux
 
 pip install django djangorestframework django-cors-headers requests
 
@@ -126,7 +126,7 @@ ________________________________________________________________________________
 ## 📸 Screenshots
 
 ### Dashboard
-![Dashboard](./screenshots/Dashboard.PNG)
+![Dashboard](./screenshots/Dashboard.png)
 
 ### Add Expense
-![Add Expense](./screenshots/addExpense.PNG)
+![Add Expense](./screenshots/addExpense.png)
