@@ -125,12 +125,8 @@ ________________________________________________________________________________
 _______________________________________________________________________________________________________________________
 ## 📸 Screenshots
 
-### 📊 Dashboard View
-<p align="center">
-  <img src="./screenshots/Dashboard.png" width="700"/>
-</p>
+### Dashboard
+![Dashboard](./screenshots/Dashboard.PNG)
 
-### ➕ Add Expense Flow
-<p align="center">
-  <img src="./screenshots/addExpense.png" width="700"/>
-</p>
+### Add Expense
+![Add Expense](./screenshots/addExpense.PNG)
